@@ -15,4 +15,12 @@ public class Settings : MonoBehaviour {
 
     public List<DisciplinaData> disciplinas;
 
+    public DisciplinaData disciplina;
+
+    public void SetDisciplina(int id)
+    {
+        print("SET " + id);
+        disciplina = disciplinas[id];
+    }
+
 }

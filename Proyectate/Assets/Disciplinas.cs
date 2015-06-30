@@ -5,6 +5,7 @@ public class Disciplinas : MonoBehaviour {
 
     [SerializeField]
     public GameObject container;
+
     [SerializeField]
     public DisciplinaButton button;
 
@@ -21,8 +22,13 @@ public class Disciplinas : MonoBehaviour {
             disciplinaButton.transform.SetParent(container.transform);
             disciplinaButton.transform.localScale = Vector3.one;
             disciplinaButton.transform.localPosition = new Vector3(0, -buttonSeparation*a, 0);
-            disciplinaButton.Init(data.name, a);
+            disciplinaButton.Init(data.name, a, this);
             a++;
         }
 	}
+    public void Select(int id)
+    {
+        Data.Instance.settings.SetDisciplina(id);
+        Data.Instance.LoadLevel("Customizer");
+    }
 }

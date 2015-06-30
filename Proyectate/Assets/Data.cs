@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Data : MonoBehaviour
 {
+    public string username;
+    public string email;
 
     const string PREFAB_PATH = "Data";
     private Fade fade;
@@ -29,7 +31,7 @@ public class Data : MonoBehaviour
     }
     public void LoadLevel(string aLevelName)
     {
-        LoadLevel(aLevelName, 1, 1, Color.black);
+        LoadLevel(aLevelName, 0.5f, 0.5f, Color.black);
     }
     public void LoadLevel(string aLevelName, float aFadeOutTime, float aFadeInTime, Color aColor)
     {
