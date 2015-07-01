@@ -5,16 +5,14 @@ public class CustomizerButtons : MonoBehaviour {
 
     public int id;
 
-	void Start () 
-    {
-	    
-	}
     public void Prev()
     {
-
+        print(id);
+        Events.OnCustomizerButtonPrevClicked(id);
     }
 	public void Next () 
     {
-	    
+        print(id);
+        Events.OnCustomizerButtonNextClicked(id);
 	}
 }
