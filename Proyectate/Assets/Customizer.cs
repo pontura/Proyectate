@@ -24,6 +24,7 @@ public class Customizer : MonoBehaviour {
     }
     void Clicked(int id, bool next)
     {
+        print("Clicked: " + id + " - next: " + next);
         switch (id)
         {
             case 1:
@@ -31,6 +32,9 @@ public class Customizer : MonoBehaviour {
                 break;
             case 2:
                 manager.ChangeShoes(next);
+                break;
+            case 3:
+                manager.ChangeTop(next);
                 break;
         }
     }
