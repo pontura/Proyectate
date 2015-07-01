@@ -2,42 +2,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System;
  
 
 public class CharacterManager : MonoBehaviour {
 
+    public List<string> shoes;
+    public int shoesId;
+
+    public List<string> tops;
+    public int topsId;
+
     public GameObject[] skin;
     public Color[] colors;
+    public int colorId;
 
     public SpriteRenderer[] shoesContainer;
 
-    public int colorId;
+    
 
     GameObject[] gameObj;
     Texture2D[] textList;
 
-    public string[] shoes;
-    private string pathPreFix; 
+    
+    private string pathPreFix;
+
+
 
 	void Start () {
-        string path = @"images\shoes\";
-        pathPreFix = @"file://";
-        shoes = System.IO.Directory.GetFiles(path, "*.png");
-        return;
-
-
-	    string dir = "Assets/images/shoes";
-        string[] files = Directory.GetFiles(dir);
-        foreach (string file in files)
-            print(Path.GetFileName(file));
+        LoadArray(shoes, @"images\shoes\");
+        LoadArray(tops, @"images\top\");
 	}
+
+    private void LoadArray(List<string> arr, string path)
+    {
+        pathPreFix = @"file://";
+        string lastName = "";
+        foreach (string name in System.IO.Directory.GetFiles(path, "*.png"))
+        {
+           
+            if (lastName != name)
+            {
+                arr.Add(name);
+                lastName = name;
+            }
+        }
+    }
     public void ChangeShoes(bool next)
     {
-        StartCoroutine("LoadImages", Random.Range(0,3));
-       foreach (SpriteRenderer spriteRenderer in shoesContainer)
-        {
-         //  spriteRenderer.sprite = 
-        }
+        shoesId = ChangeCloth(shoes, next, shoesId);
+    }
+    public int ChangeCloth(List<string> arr, bool next, int idNum)
+    {
+        if (next) idNum++;
+        else idNum--;
+        if (idNum < 0) idNum = arr.Count - 1;
+        else if (idNum > arr.Count) idNum = 0;
+        StartCoroutine("LoadImages", idNum);
+        return idNum;
     }
     public void ChangeColor(bool next)
     {
@@ -61,7 +83,7 @@ public class CharacterManager : MonoBehaviour {
 
     private IEnumerator LoadImages(int id)
     {
-        textList = new Texture2D[shoes.Length];
+        textList = new Texture2D[shoes.Count];
 
         string pathTemp = pathPreFix + shoes[id];
         WWW www = new WWW(pathTemp);
