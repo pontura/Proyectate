@@ -45,10 +45,15 @@ public class CharacterManager : MonoBehaviour {
         foreach (string name in System.IO.Directory.GetFiles(path, "*.png"))
         {
             String[] textSplit = name.Split("."[0])[0].Split("_"[0]);
-            if (textSplit[0] != lastName)
+
+
+            string realName = textSplit[0] + "_" + textSplit[1];
+            print(name + "           " + textSplit.Length);
+
+            if (realName != lastName)
             {
-                arr.Add(textSplit[0]);
-                lastName = textSplit[0];
+                arr.Add(realName);
+                lastName = realName;
             }
         }
     }
