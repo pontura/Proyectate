@@ -11,6 +11,8 @@ public class Data : MonoBehaviour
     private Fade fade;
     static Data mInstance = null;
     public Settings settings;
+    public SavedSettings savedSettings;
+    public ClothesSettings clothesSettings;
 
     public static Data Instance
     {
@@ -55,6 +57,8 @@ public class Data : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         settings = GetComponent<Settings>();
+        savedSettings = GetComponent<SavedSettings>();
+        clothesSettings = GetComponent<ClothesSettings>();
 
     }
     public void Reset()

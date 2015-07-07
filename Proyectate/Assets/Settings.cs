@@ -17,9 +17,11 @@ public class Settings : MonoBehaviour {
 
     public DisciplinaData disciplina;
 
+    public int disciplinaId;
+
     public void SetDisciplina(int id)
     {
-        print("SET " + id);
+        this.disciplinaId = id;
         disciplina = disciplinas[id];
     }
 

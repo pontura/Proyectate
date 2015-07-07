@@ -5,9 +5,10 @@ using System.Collections;
 public class NameRequest : MonoBehaviour {
 
     public Text inputField;
+    public CharacterManager characterManager;
 
 	void Start () {
-	
+	 //   characterManager.ChangeCloth(
 	}
 	public void Ready()
     {

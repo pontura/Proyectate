@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Customizer : MonoBehaviour {
 
-    CharacterManager manager;
+   public CharacterManager manager;
+
 	void Start () {
-        manager = GetComponent<CharacterManager>();
         Events.OnCustomizerButtonPrevClicked += OnCustomizerButtonPrevClicked;
         Events.OnCustomizerButtonNextClicked += OnCustomizerButtonNextClicked;
 	}
@@ -31,10 +31,19 @@ public class Customizer : MonoBehaviour {
                 manager.ChangeColor(next);
                 break;
             case 2:
-                manager.ChangeShoes(next);
+                manager.ChangeHair(next);
                 break;
             case 3:
+                manager.ChangeFaces(next);
+                break;
+            case 4:
                 manager.ChangeTop(next);
+                break;
+            case 5:
+                manager.ChangeLegs(next);
+                break;
+            case 6:
+                manager.ChangeShoes(next);
                 break;
         }
     }
