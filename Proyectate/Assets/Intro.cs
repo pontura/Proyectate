@@ -10,6 +10,6 @@ public class Intro : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void Disciplinas () {
-        Data.Instance.LoadLevel("Disciplinas");
+        Data.Instance.LoadLevel("Slides");
 	}
 }

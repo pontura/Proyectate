@@ -61,6 +61,7 @@ public class Customizer : MonoBehaviour {
                 characterManager.ChangeShoes(next);
                 break;
         }
+        Resources.UnloadUnusedAssets();
     }
     public void Ready()
     {

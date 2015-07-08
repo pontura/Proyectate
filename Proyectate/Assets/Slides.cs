@@ -4,28 +4,55 @@ using System.Collections;
 
 public class Slides : MonoBehaviour
 {
+    public Text maskerTitle;
+    public Animation anim;
     public Text titleLabel;
     public GameObject NameLabel;
-    public GameObject CharactersContainer;
+    public GameObject[] CharactersContainer;
     private ClothesSettings clothesSettings;
     private SavedSettings savedSettings;
     private Settings settings;
+    private int containerId;
+    private bool started = false;
 
     void Start()
     {
         settings = Data.Instance.settings;        
         clothesSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
-        NextSlide();        
+        StartCoroutine("NextSlide");    
     }
-    void NextSlide()
+    IEnumerator NextSlide()
     {
         settings.GetNextDisciplina();
-        AddPlayers();
-        
-        titleLabel.text = settings.GetDisciplina().name;
 
-        Invoke("NextSlide", 4);
+        maskerTitle.text = settings.GetDisciplina().name;
+
+        if (started)
+        {
+            anim.Play("SlidesMaskerOn");
+
+            yield return new WaitForSeconds(2);
+        }
+
+            foreach (GameObject container in CharactersContainer)
+                container.SetActive(false);
+            containerId = Random.Range(0, CharactersContainer.Length);
+            CharactersContainer[containerId].SetActive(true);
+            titleLabel.text = settings.GetDisciplina().name;    
+            AddPlayers();
+
+        yield return new WaitForSeconds(1.5f);
+
+        anim.Play("SlidesMaskerOff");
+
+        started = true;
+
+        yield return new WaitForSeconds(4);
+
+            Resources.UnloadUnusedAssets();
+            StartCoroutine("NextSlide"); 
+        
     }
     public void StartGame()
     {
@@ -34,7 +61,7 @@ public class Slides : MonoBehaviour
     void AddPlayers()
     {
         int id = 1;
-        foreach (CharacterManager characterManager in CharactersContainer.GetComponentsInChildren<CharacterManager>())
+        foreach (CharacterManager characterManager in CharactersContainer[containerId].GetComponentsInChildren<CharacterManager>())
         {
             AddClothes(characterManager, id);
             id++;
@@ -55,7 +82,7 @@ public class Slides : MonoBehaviour
             characterManager.SetColor(playerSettings.color);
 
             GameObject newNameLabel = Instantiate(NameLabel);
-            newNameLabel.transform.SetParent(CharactersContainer.transform);
+            newNameLabel.transform.SetParent(CharactersContainer[containerId].transform);
             newNameLabel.transform.localPosition = characterManager.gameObject.transform.parent.localPosition;
             newNameLabel.transform.localScale = Vector3.one;
             newNameLabel.GetComponentInChildren<TextMesh>().text = playerSettings.username;
