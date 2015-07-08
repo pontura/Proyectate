@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Data : MonoBehaviour
 {
-    public string username;
     public string email;
 
     const string PREFAB_PATH = "Data";

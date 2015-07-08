@@ -12,12 +12,9 @@ public class ClothesSettings : MonoBehaviour {
     public List<string> legs;
     public List<string> faces;
 
-    private string pathPreFix;
-
 	void Start () {
         LoadArray(shoes, @"images\shoes\");
         LoadArray(tops, @"images\top\");
-
         LoadArray(hairs, @"images\hair\");
         LoadArray(legs, @"images\bottom\");
         LoadArray(faces, @"images\face\");
@@ -25,7 +22,6 @@ public class ClothesSettings : MonoBehaviour {
 
     private void LoadArray(List<string> arr, string path)
     {
-        pathPreFix = @"file://";
         string lastName = "";
 
         foreach (string name in System.IO.Directory.GetFiles(path, "*.png"))
@@ -34,7 +30,7 @@ public class ClothesSettings : MonoBehaviour {
 
 
             string realName = textSplit[0] + "_" + textSplit[1];
-            print(name + "           " + textSplit.Length);
+           // print(name + "           " + textSplit.Length);
 
             if (realName != lastName)
             {

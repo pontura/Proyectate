@@ -3,11 +3,26 @@ using System.Collections;
 
 public class Customizer : MonoBehaviour {
 
-   public CharacterManager manager;
+    public CharacterManager characterManager;
+    private ClothesSettings clothesSettings;
+    private SavedSettings savedSettings;
 
 	void Start () {
         Events.OnCustomizerButtonPrevClicked += OnCustomizerButtonPrevClicked;
         Events.OnCustomizerButtonNextClicked += OnCustomizerButtonNextClicked;
+
+        
+        clothesSettings = Data.Instance.clothesSettings;
+        savedSettings = Data.Instance.savedSettings;
+
+        savedSettings.CreateRandomPlayer();
+
+        characterManager.SetCloth(clothesSettings.faces, savedSettings.myPlayerSettings.face);
+        characterManager.SetCloth(clothesSettings.hairs, savedSettings.myPlayerSettings.hair);
+        characterManager.SetCloth(clothesSettings.legs, savedSettings.myPlayerSettings.bottom);
+        characterManager.SetCloth(clothesSettings.shoes, savedSettings.myPlayerSettings.shoes);
+        characterManager.SetCloth(clothesSettings.tops, savedSettings.myPlayerSettings.body);
+        characterManager.SetColor(savedSettings.myPlayerSettings.color);
 	}
     void OnDestroy()
     {
@@ -24,26 +39,26 @@ public class Customizer : MonoBehaviour {
     }
     void Clicked(int id, bool next)
     {
-        print("Clicked: " + id + " - next: " + next);
+        //print("Clicked: " + id + " - next: " + next);
         switch (id)
         {
             case 1:
-                manager.ChangeColor(next);
+                characterManager.ChangeColor(next);
                 break;
             case 2:
-                manager.ChangeHair(next);
+                characterManager.ChangeHair(next);
                 break;
             case 3:
-                manager.ChangeFaces(next);
+                characterManager.ChangeFaces(next);
                 break;
             case 4:
-                manager.ChangeTop(next);
+                characterManager.ChangeTop(next);
                 break;
             case 5:
-                manager.ChangeLegs(next);
+                characterManager.ChangeLegs(next);
                 break;
             case 6:
-                manager.ChangeShoes(next);
+                characterManager.ChangeShoes(next);
                 break;
         }
     }

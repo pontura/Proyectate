@@ -19,10 +19,21 @@ public class Settings : MonoBehaviour {
 
     public int disciplinaId;
 
+    public DisciplinaData GetDisciplina()
+    {
+        return disciplinas[disciplinaId];
+    }
     public void SetDisciplina(int id)
     {
         this.disciplinaId = id;
         disciplina = disciplinas[id];
+    }
+    public int GetNextDisciplina()
+    {
+        disciplinaId++;
+        if (disciplinaId > disciplinas.Count - 1)
+            disciplinaId = 0;
+        return disciplinaId;
     }
 
 }

@@ -36,37 +36,57 @@ public class CharacterManager : MonoBehaviour {
 
     void Start()
     {
+        pathPreFix = @"file://";
         clothSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
+      //  GetComponent<Animation>().Play("shoes1");
+    }
+    public void Idle()
+    {
+        GetComponent<Animator>().Play("Idle1");
     }
     public void ChangeShoes(bool next)
     {
         savedSettings.myPlayerSettings.shoes = ChangeCloth(clothSettings.shoes, next, savedSettings.myPlayerSettings.shoes);
+        GetComponent<Animator>().Play("shoes1");
     }
     public void ChangeTop(bool next)
     {
         savedSettings.myPlayerSettings.body = ChangeCloth(clothSettings.tops, next, savedSettings.myPlayerSettings.body);
+        GetComponent<Animator>().Play("top1");
     }
     public void ChangeHair(bool next)
     {
         savedSettings.myPlayerSettings.hair = ChangeCloth(clothSettings.hairs, next, savedSettings.myPlayerSettings.hair);
+        GetComponent<Animator>().Play("hair1");
     }
     public void ChangeLegs(bool next)
     {
         savedSettings.myPlayerSettings.bottom = ChangeCloth(clothSettings.legs, next, savedSettings.myPlayerSettings.bottom);
+        GetComponent<Animator>().Play("bottom1");
     }
     public void ChangeFaces(bool next)
     {
         savedSettings.myPlayerSettings.face = ChangeCloth(clothSettings.faces, next, savedSettings.myPlayerSettings.face);
+        GetComponent<Animator>().Play("hair1");
     }
     private string pathTemp;
     public int ChangeCloth(List<string> arr, bool next, int idNum)
     {
-        pathPreFix = @"file://";
         if (next) idNum++;
         else idNum--;
         if (idNum < 0) idNum = arr.Count - 1;
         else if (idNum > arr.Count-1) idNum = 0;
+
+        SetCloth(arr, idNum);
+
+        return idNum;
+    }
+    public void SetCloth(List<string> arr, int idNum)
+    {
+        pathPreFix = @"file://";
+        clothSettings = Data.Instance.clothesSettings;
+        savedSettings = Data.Instance.savedSettings;
 
         if (arr == clothSettings.shoes)
         {
@@ -113,7 +133,6 @@ public class CharacterManager : MonoBehaviour {
             pathTemp = pathPreFix + clothSettings.hairs[idNum] + "_b.png";
             StartCoroutine("LoadImages", Hair2Container[0]);
         }
-        return idNum;
     }
     public void ChangeColor(bool next)
     {
@@ -123,20 +142,20 @@ public class CharacterManager : MonoBehaviour {
         if (savedSettings.myPlayerSettings.color < 0) savedSettings.myPlayerSettings.color = colors.Length - 1;
         else if (savedSettings.myPlayerSettings.color >= colors.Length) savedSettings.myPlayerSettings.color = 0;
 
-        SetColor();
+        SetColor(savedSettings.myPlayerSettings.color);
     }
-    public void SetColor()
+    public void SetColor(int colorID)
     {
         foreach (GameObject go in skin)
         {
-            go.GetComponent<SpriteRenderer>().color = colors[savedSettings.myPlayerSettings.color];
+            go.GetComponent<SpriteRenderer>().color = colors[colorID];
         }
     }
 
 
     private IEnumerator LoadImages(SpriteRenderer spriteContainer)
     {
-        print("loading: " + pathTemp);
+       // print("loading: " + pathTemp);
         WWW www = new WWW(pathTemp);
         yield return www;
 

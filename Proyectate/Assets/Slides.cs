@@ -1,27 +1,35 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class Classroom : MonoBehaviour {
-
-    [SerializeField]
+public class Slides : MonoBehaviour
+{
+    public Text titleLabel;
     public GameObject NameLabel;
     public GameObject CharactersContainer;
     private ClothesSettings clothesSettings;
     private SavedSettings savedSettings;
+    private Settings settings;
 
-	void Start () {
+    void Start()
+    {
+        settings = Data.Instance.settings;        
         clothesSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
-        AddPlayers();
-	}
-    public void Replay()
-    {
-        GetComponent<ScreenShot>().TakePhoto();
-        Data.Instance.LoadLevel("Slides");
+        NextSlide();        
     }
-    public void Email()
+    void NextSlide()
     {
-        Data.Instance.LoadLevel("EmailRequest");
+        settings.GetNextDisciplina();
+        AddPlayers();
+        
+        titleLabel.text = settings.GetDisciplina().name;
+
+        Invoke("NextSlide", 4);
+    }
+    public void StartGame()
+    {
+        Data.Instance.LoadLevel("Disciplinas");
     }
     void AddPlayers()
     {
@@ -34,11 +42,11 @@ public class Classroom : MonoBehaviour {
     }
     void AddClothes(CharacterManager characterManager, int id)
     {
-        
-        SavedSettings.PlayerSettings playerSettings = savedSettings.GetClothes(Data.Instance.settings.disciplinaId, id);        
+
+        SavedSettings.PlayerSettings playerSettings = savedSettings.GetClothes(Data.Instance.settings.disciplinaId, id);
         if (playerSettings != null)
         {
-            print("AddClothes username: " + id + " " + playerSettings.username);
+            characterManager.gameObject.SetActive(true);
             characterManager.SetCloth(clothesSettings.faces, playerSettings.face);
             characterManager.SetCloth(clothesSettings.hairs, playerSettings.hair);
             characterManager.SetCloth(clothesSettings.legs, playerSettings.bottom);
@@ -51,7 +59,7 @@ public class Classroom : MonoBehaviour {
             newNameLabel.transform.localPosition = characterManager.gameObject.transform.parent.localPosition;
             newNameLabel.transform.localScale = Vector3.one;
             newNameLabel.GetComponentInChildren<TextMesh>().text = playerSettings.username;
-            
+
         }
         else
         {
