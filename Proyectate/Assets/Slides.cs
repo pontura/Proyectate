@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Slides : MonoBehaviour
 {
+    public Aula aula;
     public Text maskerTitle;
     public Animation anim;
     public Text titleLabel;
@@ -27,13 +28,17 @@ public class Slides : MonoBehaviour
         settings.GetNextDisciplina();
 
         maskerTitle.text = settings.GetDisciplina().name;
+        
 
         if (started)
         {
             anim.Play("SlidesMaskerOn");
 
             yield return new WaitForSeconds(2);
+            
         }
+
+        aula.LoadSprite();
 
             foreach (GameObject container in CharactersContainer)
                 container.SetActive(false);

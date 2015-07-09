@@ -14,10 +14,9 @@ public class Aula : MonoBehaviour {
         {
             case 0: texture = "aulas/matematica"; break;
             case 1: texture = "aulas/biologia"; break;
-            case 2: texture = "aulas/matematica"; break;
-            case 3: texture = "aulas/matematica"; break;
-            case 4: texture = "aulas/matematica"; break;
-            case 5: texture = "aulas/matematica"; break;
+            case 2: texture = "aulas/educacion"; break;
+            case 3: texture = "aulas/administracion"; break;
+            case 4: texture = "aulas/arte"; break;
         }
         
         GetComponent<SpriteRenderer>().sprite = Resources.Load(texture, typeof(Sprite)) as Sprite;
