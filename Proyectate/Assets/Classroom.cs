@@ -16,12 +16,11 @@ public class Classroom : MonoBehaviour {
 	}
     public void Replay()
     {
-        GetComponent<ScreenShot>().TakePhoto();
         Data.Instance.LoadLevel("Slides");
     }
     public void Email()
     {
-        Data.Instance.LoadLevel("EmailRequest");
+        GetComponent<EmailRequest>().Open();
     }
     void AddPlayers()
     {

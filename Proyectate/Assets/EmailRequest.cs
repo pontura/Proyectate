@@ -6,38 +6,44 @@ using System.Text.RegularExpressions;
 
 public class EmailRequest : MonoBehaviour
 {
-
+    public GameObject CongratsSignal;
+    public Button EmailButton;
+    public GameObject canvasEmail;
     public GameObject signal;
     public Text inputField;
-    public CharacterManager characterManager;
-    private ClothesSettings clothesSettings;
-    private SavedSettings savedSettings;
 
     void Start()
     {
+        CongratsSignal.SetActive(false);
+        canvasEmail.SetActive(false);
         signal.SetActive(false);
-        clothesSettings = Data.Instance.clothesSettings;
-        savedSettings = Data.Instance.savedSettings;
-        characterManager.SetCloth(clothesSettings.faces, savedSettings.myPlayerSettings.face);
-        characterManager.SetCloth(clothesSettings.hairs, savedSettings.myPlayerSettings.hair);
-        characterManager.SetCloth(clothesSettings.legs, savedSettings.myPlayerSettings.bottom);
-        characterManager.SetCloth(clothesSettings.shoes, savedSettings.myPlayerSettings.shoes);
-        characterManager.SetCloth(clothesSettings.tops, savedSettings.myPlayerSettings.body);
-        characterManager.SetColor(savedSettings.myPlayerSettings.color);
+    }
+    public void Open()
+    {
+        canvasEmail.SetActive(true);
+        signal.SetActive(false);
+    }
+    public void Close()
+    {
+        CongratsSignal.SetActive(false);
+        canvasEmail.SetActive(false);
+        signal.SetActive(false);
     }
     public void Ready()
     {
         if (inputField.text.Length > 0)
         {
             if (IsValidEmail(inputField.text)) 
-                Data.Instance.LoadLevel("Slides");
+            {
+                GetComponent<ScreenShot>().TakePhoto();
+
+                canvasEmail.SetActive(false);
+                CongratsSignal.SetActive(true);
+                EmailButton.enabled = false;
+            }
             else
                 signal.SetActive(true);
         }
-    }
-    public void Back()
-    {
-        Data.Instance.LoadLevel("Slides");
     }
     bool IsValidEmail(string strIn)
     {

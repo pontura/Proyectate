@@ -4,9 +4,9 @@ using System.Collections;
 
 public class DisciplinaButton : MonoBehaviour {
 
-    public void Init(string name, int id, Disciplinas disciplinas)
+    void Start()
     {
-        GetComponentInChildren<Text>().text = name;
-        GetComponent<Button>().onClick.AddListener(() => disciplinas.Select(id) );
+        Text field = GetComponentInChildren<Text>();
+        field.text = field.text.ToUpper();
     }
 }

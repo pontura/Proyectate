@@ -43,32 +43,32 @@ public class CharacterManager : MonoBehaviour {
     }
     public void Idle()
     {
-        GetComponent<Animator>().Play("Idle1");
+        GetComponent<Animator>().Play("Idle1", 0, 0);
     }
     public void ChangeShoes(bool next)
     {
         savedSettings.myPlayerSettings.shoes = ChangeCloth(clothSettings.shoes, next, savedSettings.myPlayerSettings.shoes);
-        GetComponent<Animator>().Play("shoes1");
+        GetComponent<Animator>().Play("shoes1", 0, 0);
     }
     public void ChangeTop(bool next)
     {
         savedSettings.myPlayerSettings.body = ChangeCloth(clothSettings.tops, next, savedSettings.myPlayerSettings.body);
-        GetComponent<Animator>().Play("top1");
+        GetComponent<Animator>().Play("top1", 0, 0);
     }
     public void ChangeHair(bool next)
     {
         savedSettings.myPlayerSettings.hair = ChangeCloth(clothSettings.hairs, next, savedSettings.myPlayerSettings.hair);
-        GetComponent<Animator>().Play("hair1");
+        GetComponent<Animator>().Play("hair1", 0, 0);
     }
     public void ChangeLegs(bool next)
     {
         savedSettings.myPlayerSettings.bottom = ChangeCloth(clothSettings.legs, next, savedSettings.myPlayerSettings.bottom);
-        GetComponent<Animator>().Play("bottom1");
+        GetComponent<Animator>().Play("bottom1", 0, 0);
     }
     public void ChangeFaces(bool next)
     {
         savedSettings.myPlayerSettings.face = ChangeCloth(clothSettings.faces, next, savedSettings.myPlayerSettings.face);
-        GetComponent<Animator>().Play("hair1");
+        GetComponent<Animator>().Play("hair1", 0, 0);
     }
     private string pathTemp;
     public int ChangeCloth(List<string> arr, bool next, int idNum)
