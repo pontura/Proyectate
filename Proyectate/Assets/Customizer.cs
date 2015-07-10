@@ -22,6 +22,7 @@ public class Customizer : MonoBehaviour {
         characterManager.SetCloth(clothesSettings.legs, savedSettings.myPlayerSettings.bottom);
         characterManager.SetCloth(clothesSettings.shoes, savedSettings.myPlayerSettings.shoes);
         characterManager.SetCloth(clothesSettings.tops, savedSettings.myPlayerSettings.body);
+        characterManager.SetCloth(clothesSettings.glasses, savedSettings.myPlayerSettings.glasses);
         characterManager.SetColor(savedSettings.myPlayerSettings.color);
 	}
     void OnDestroy()
@@ -59,6 +60,9 @@ public class Customizer : MonoBehaviour {
                 break;
             case 6:
                 characterManager.ChangeShoes(next);
+                break;
+            case 7:
+                characterManager.ChangeGlasses(next);
                 break;
         }
         Resources.UnloadUnusedAssets();

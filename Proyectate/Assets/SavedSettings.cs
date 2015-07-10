@@ -15,6 +15,7 @@ public class SavedSettings : MonoBehaviour {
         public int body;
         public int bottom;
         public int shoes;
+        public int glasses;
     }    
     public PlayerSettings myPlayerSettings;
     public int totalPlayersInThisDisciplina;
@@ -39,6 +40,7 @@ public class SavedSettings : MonoBehaviour {
             case "body": myPlayerSettings.body = clothID; break;
             case "bottom": myPlayerSettings.bottom = clothID; break;
             case "shoes": myPlayerSettings.shoes = clothID; break;
+            case "glasses": myPlayerSettings.glasses = clothID; break;
         }
     }
     public void CreateRandomPlayer()
@@ -49,6 +51,7 @@ public class SavedSettings : MonoBehaviour {
         myPlayerSettings.body = GetRandom(clothSettings.tops);
         myPlayerSettings.bottom = GetRandom(clothSettings.legs);
         myPlayerSettings.shoes = GetRandom(clothSettings.shoes);
+        myPlayerSettings.glasses = GetRandom(clothSettings.glasses);
     }
     private int GetRandom(List<string> list)
     {
@@ -78,7 +81,8 @@ public class SavedSettings : MonoBehaviour {
             playerSettings.face + "_" +
             playerSettings.body + "_" +
             playerSettings.bottom + "_" +
-            playerSettings.shoes
+            playerSettings.shoes + "_" + 
+            playerSettings.glasses
             );
             id++;
             if (id > 10) return;
@@ -106,6 +110,7 @@ public class SavedSettings : MonoBehaviour {
                 playerSettings.body = int.Parse(textSplit[4]);
                 playerSettings.bottom = int.Parse(textSplit[5]);
                 playerSettings.shoes = int.Parse(textSplit[6]);
+                playerSettings.glasses = int.Parse(textSplit[7]);
 
                 savedPlayers.Add(playerSettings);
                 totalPlayersInThisDisciplina++;
@@ -132,6 +137,7 @@ public class SavedSettings : MonoBehaviour {
             playerSettings.body = int.Parse(textSplit[4]);
             playerSettings.bottom = int.Parse(textSplit[5]);
             playerSettings.shoes = int.Parse(textSplit[6]);
+            playerSettings.glasses = int.Parse(textSplit[7]);
         }
 
         return playerSettings;

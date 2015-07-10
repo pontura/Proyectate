@@ -43,6 +43,7 @@ public class Classroom : MonoBehaviour {
             characterManager.SetCloth(clothesSettings.legs, playerSettings.bottom);
             characterManager.SetCloth(clothesSettings.shoes, playerSettings.shoes);
             characterManager.SetCloth(clothesSettings.tops, playerSettings.body);
+            characterManager.SetCloth(clothesSettings.glasses, playerSettings.glasses);
             characterManager.SetColor(playerSettings.color);
 
             GameObject newNameLabel = Instantiate(NameLabel);

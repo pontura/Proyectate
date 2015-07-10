@@ -11,6 +11,7 @@ public class CharacterManager : MonoBehaviour {
     public GameObject[] skin;
     public Color[] colors;
 
+    public SpriteRenderer[] glassesContainer;
     public SpriteRenderer[] shoesContainer;
     public SpriteRenderer[] BodyContainer;
     public SpriteRenderer[] Arm1Container;
@@ -44,6 +45,11 @@ public class CharacterManager : MonoBehaviour {
     public void Idle()
     {
         GetComponent<Animator>().Play("Idle1", 0, 0);
+    }
+    public void ChangeGlasses(bool next)
+    {
+        savedSettings.myPlayerSettings.glasses = ChangeCloth(clothSettings.glasses, next, savedSettings.myPlayerSettings.glasses);
+        GetComponent<Animator>().Play("hair1", 0, 0);
     }
     public void ChangeShoes(bool next)
     {
@@ -88,6 +94,11 @@ public class CharacterManager : MonoBehaviour {
         clothSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
 
+        if (arr == clothSettings.glasses)
+        {
+            pathTemp = pathPreFix + clothSettings.glasses[idNum] + ".png";
+            StartCoroutine("LoadImages", glassesContainer[0]);
+        }
         if (arr == clothSettings.shoes)
         {
             pathTemp = pathPreFix + clothSettings.shoes[idNum] + ".png";

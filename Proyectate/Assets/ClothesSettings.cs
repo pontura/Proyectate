@@ -6,6 +6,7 @@ using System;
 
 public class ClothesSettings : MonoBehaviour {
 
+    public List<string> glasses;
     public List<string> shoes;
     public List<string> tops;
     public List<string> hairs;
@@ -13,6 +14,7 @@ public class ClothesSettings : MonoBehaviour {
     public List<string> faces;
 
 	void Start () {
+        LoadArray(glasses, @"images\glasses\");
         LoadArray(shoes, @"images\shoes\");
         LoadArray(tops, @"images\top\");
         LoadArray(hairs, @"images\hair\");
