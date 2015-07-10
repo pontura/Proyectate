@@ -49,7 +49,7 @@ public class CharacterManager : MonoBehaviour {
     public void ChangeGlasses(bool next)
     {
         savedSettings.myPlayerSettings.glasses = ChangeCloth(clothSettings.glasses, next, savedSettings.myPlayerSettings.glasses);
-        GetComponent<Animator>().Play("hair1", 0, 0);
+        GetComponent<Animator>().Play("face1", 0, 0);
     }
     public void ChangeShoes(bool next)
     {
@@ -74,7 +74,7 @@ public class CharacterManager : MonoBehaviour {
     public void ChangeFaces(bool next)
     {
         savedSettings.myPlayerSettings.face = ChangeCloth(clothSettings.faces, next, savedSettings.myPlayerSettings.face);
-        GetComponent<Animator>().Play("hair1", 0, 0);
+        GetComponent<Animator>().Play("face1", 0, 0);
     }
     private string pathTemp;
     public int ChangeCloth(List<string> arr, bool next, int idNum)
@@ -147,6 +147,7 @@ public class CharacterManager : MonoBehaviour {
     }
     public void ChangeColor(bool next)
     {
+        GetComponent<Animator>().Play("color1", 0, 0);
         if (next)
             savedSettings.myPlayerSettings.color++;
         else savedSettings.myPlayerSettings.color--;

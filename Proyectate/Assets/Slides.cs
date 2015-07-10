@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Slides : MonoBehaviour
 {
+    public GameObject namesContainer;
     public Aula aula;
     public Text maskerTitle;
     public Animation anim;
@@ -39,6 +40,9 @@ public class Slides : MonoBehaviour
         }
 
         aula.LoadSprite();
+
+            foreach (Transform tr in namesContainer.GetComponent<Transform>())
+                Destroy(tr.gameObject);
 
             foreach (GameObject container in CharactersContainer)
                 container.SetActive(false);
@@ -87,7 +91,7 @@ public class Slides : MonoBehaviour
             characterManager.SetColor(playerSettings.color);
 
             GameObject newNameLabel = Instantiate(NameLabel);
-            newNameLabel.transform.SetParent(CharactersContainer[containerId].transform);
+            newNameLabel.transform.SetParent(namesContainer.transform);
             newNameLabel.transform.localPosition = characterManager.gameObject.transform.parent.localPosition;
             newNameLabel.transform.localScale = Vector3.one;
             newNameLabel.GetComponentInChildren<TextMesh>().text = playerSettings.username;

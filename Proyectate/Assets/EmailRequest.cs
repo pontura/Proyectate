@@ -20,6 +20,7 @@ public class EmailRequest : MonoBehaviour
     }
     public void Open()
     {
+        canvasEmail.GetComponent<Animator>().Play("popUpOn", 0, 0);
         canvasEmail.SetActive(true);
         signal.SetActive(false);
     }

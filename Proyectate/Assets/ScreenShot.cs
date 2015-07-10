@@ -22,8 +22,8 @@ public class ScreenShot : MonoBehaviour
         RenderTexture.active = null; // JC: added to avoid errors
         Destroy(rt);
         byte[] bytes = screenShot.EncodeToPNG();
-        string filename = Application.dataPath + "/XXX.png";
-      //  System.IO.File.WriteAllBytes(filename, bytes);
+        string filename = Application.dataPath + "/mail/XXX.png";
+        System.IO.File.WriteAllBytes(filename, bytes);
         Debug.Log(string.Format("Took screenshot to: {0}", filename));
     }
 }
