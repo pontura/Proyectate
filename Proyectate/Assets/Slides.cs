@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Slides : MonoBehaviour
 {
+    public GameObject Logo;
+    public GameObject Scene;
+
+    public Lisiados[] lisiados;
     public GameObject namesContainer;
     public Aula aula;
     public Text maskerTitle;
@@ -17,39 +22,86 @@ public class Slides : MonoBehaviour
     private int containerId;
     private bool started = false;
 
+    public List<CharacterManager> allCharacter;
+
     void Start()
     {
         settings = Data.Instance.settings;        
         clothesSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
-        StartCoroutine("NextSlide");    
+        vueltas = 0;
+        StartCoroutine("NextSlide");
     }
+    private int vueltas;
     IEnumerator NextSlide()
     {
+        vueltas++;
         settings.GetNextDisciplina();
-
         maskerTitle.text = settings.GetDisciplina().name;
         
-
-        if (started)
+        if (!started)
         {
+            maskerTitle.text = "PROYECTATE...";
+            Logo.SetActive(true);
+            Scene.SetActive(false);
+            anim.Play("SlidesMaskerOff");
+            yield return new WaitForSeconds(4);
+            maskerTitle.text = settings.GetDisciplina().name;
             anim.Play("SlidesMaskerOn");
-
             yield return new WaitForSeconds(2);
+            Logo.SetActive(false);
+            Scene.SetActive(true);
             
+        }
+        else if (vueltas == 3)
+        {
+            vueltas = 0;
+            maskerTitle.text = "PROYECTATE...";
+            anim.Play("SlidesMaskerOn");
+            yield return new WaitForSeconds(2);
+            Logo.SetActive(true);
+            Scene.SetActive(false);
+            anim.Play("SlidesMaskerOff");
+            yield return new WaitForSeconds(4);
+            maskerTitle.text = settings.GetDisciplina().name;
+             anim.Play("SlidesMaskerOn");
+            yield return new WaitForSeconds(2);
+            Logo.SetActive(false);
+            Scene.SetActive(true);
+        }
+        else
+        {
+
+            anim.Play("SlidesMaskerOn");
+            yield return new WaitForSeconds(2);
+
+        }
+
+        foreach (Lisiados lisiado in lisiados)
+            lisiado.SetOn();
+
+        if (allCharacter != null)
+        {
+            foreach (CharacterManager cm in allCharacter)
+                cm.gameObject.SetActive(true);
+            allCharacter.Clear();
         }
 
         aula.LoadSprite();
 
-            foreach (Transform tr in namesContainer.GetComponent<Transform>())
-                Destroy(tr.gameObject);
+        foreach (Transform tr in namesContainer.GetComponent<Transform>())
+            Destroy(tr.gameObject);
 
-            foreach (GameObject container in CharactersContainer)
-                container.SetActive(false);
-            containerId = Random.Range(0, CharactersContainer.Length);
-            CharactersContainer[containerId].SetActive(true);
-            titleLabel.text = settings.GetDisciplina().name;    
-            AddPlayers();
+        foreach (GameObject container in CharactersContainer)
+            container.SetActive(false);
+
+        containerId = Random.Range(0, CharactersContainer.Length);
+        CharactersContainer[containerId].SetActive(true);
+
+       
+
+        titleLabel.text = settings.GetDisciplina().name;    
+        AddPlayers();
 
         yield return new WaitForSeconds(1.5f);
 
@@ -70,19 +122,20 @@ public class Slides : MonoBehaviour
     void AddPlayers()
     {
         int id = 1;
+        
         foreach (CharacterManager characterManager in CharactersContainer[containerId].GetComponentsInChildren<CharacterManager>())
         {
+            allCharacter.Add(characterManager);
             AddClothes(characterManager, id);
             id++;
         }
+
     }
     void AddClothes(CharacterManager characterManager, int id)
     {
-
         SavedSettings.PlayerSettings playerSettings = savedSettings.GetClothes(Data.Instance.settings.disciplinaId, id);
         if (playerSettings != null)
         {
-            characterManager.gameObject.SetActive(true);
             characterManager.SetCloth(clothesSettings.faces, playerSettings.face);
             characterManager.SetCloth(clothesSettings.hairs, playerSettings.hair);
             characterManager.SetCloth(clothesSettings.legs, playerSettings.bottom);

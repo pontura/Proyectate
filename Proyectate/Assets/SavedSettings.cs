@@ -123,7 +123,6 @@ public class SavedSettings : MonoBehaviour {
 
         string playerData;
         playerData = PlayerPrefs.GetString("d_" + disciplinaID + "_p" + id);
-
         if (playerData.Length > 1)
         {
             String[] textSplit = playerData.Split("_"[0]);

@@ -7,6 +7,8 @@ using System;
 
 public class CharacterManager : MonoBehaviour {
 
+    public AnimationClip[] randomIdleClips;
+    public AnimationClip[] randomActionClips;
 
     public GameObject[] skin;
     public Color[] colors;
@@ -41,6 +43,20 @@ public class CharacterManager : MonoBehaviour {
         clothSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
       //  GetComponent<Animation>().Play("shoes1");
+        if (UnityEngine.Random.Range(0, 100) < 50)
+            RandomActionAnim();
+        else
+            RandomIdleAnim();
+    }
+    public void RandomIdleAnim()
+    {
+        int id = UnityEngine.Random.Range(0, randomIdleClips.Length);        
+        GetComponent<Animator>().Play(randomIdleClips[id].name, 0, 0);
+    }
+    public void RandomActionAnim()
+    {
+        int id = UnityEngine.Random.Range(0, randomActionClips.Length);
+        GetComponent<Animator>().Play(randomActionClips[id].name, 0, 0);
     }
     public void Idle()
     {
