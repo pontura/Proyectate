@@ -10,6 +10,10 @@ public class NameRequest : MonoBehaviour {
     private SavedSettings savedSettings;
 
 	void Start () {
+        
+        if(TouchScreenKeyboard.isSupported)
+            TouchScreenKeyboard.Open("");
+
         clothesSettings = Data.Instance.clothesSettings;
         savedSettings = Data.Instance.savedSettings;
         characterManager.SetCloth(clothesSettings.faces, savedSettings.myPlayerSettings.face);

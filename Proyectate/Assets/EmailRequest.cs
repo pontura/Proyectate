@@ -34,8 +34,11 @@ public class EmailRequest : MonoBehaviour
     {
         if (inputField.text.Length > 0)
         {
-            if (IsValidEmail(inputField.text)) 
+            string str = inputField.text.ToLower();
+            if (IsValidEmail(str)) 
             {
+                print("is valid");
+                Data.Instance.email = str;
                 GetComponent<ScreenShot>().TakePhoto();
 
                 canvasEmail.SetActive(false);

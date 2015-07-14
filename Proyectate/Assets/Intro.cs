@@ -4,8 +4,9 @@ using System.Collections;
 public class Intro : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-      //  PlayerPrefs.DeleteAll();
+	public void DeleteAll() {
+        PlayerPrefs.DeleteAll();
+        Application.Quit();
 	}
 	
 	// Update is called once per frame
